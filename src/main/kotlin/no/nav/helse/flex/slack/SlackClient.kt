@@ -22,7 +22,7 @@ internal class SlackClient(private val accessToken: String) {
     fun postMessage(
         text: String,
         channel: String,
-        emoji: String = ":scream:",
+        emoji: String = ":viggo:",
         threadTs: String? = null,
         broadcast: Boolean = false,
     ): String? {
