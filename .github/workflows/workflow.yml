@@ -15,11 +15,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-      - name: Lint
-        run: ./gradlew ktlintCheck
+
       - uses: gradle/gradle-build-action@v3
         with:
           arguments: --configuration-cache build
+
+      - name: Lint
+        run: ./gradlew ktlintCheck
 
       - name: docker-build-push
         if: github.ref_name == 'main'
