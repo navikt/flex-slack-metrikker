@@ -2,10 +2,8 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("java")
-    id("maven-publish")
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
 }
 
 repositories {
