@@ -16,7 +16,7 @@ application {
 }
 
 val kluentVersion = "1.73"
-val junitVersion = "5.10.2"
+val junitVersion = "5.10.3"
 
 dependencies {
     implementation(kotlin("stdlib"))
