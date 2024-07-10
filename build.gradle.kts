@@ -4,21 +4,23 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
     kotlin("jvm") version "2.0.0"
+    application
 }
 
 repositories {
     mavenCentral()
 }
 
-group = "no.nav.helse.flex"
-version = "1"
-description = "flex-slack-metrikker"
-java.sourceCompatibility = JavaVersion.VERSION_21
+application {
+    mainClass.set("no.nav.helse.flex.AppKt")
+}
 
 val kluentVersion = "1.73"
 val junitVersion = "5.10.2"
 
 dependencies {
+    implementation(kotlin("stdlib"))
+
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
     testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
@@ -43,4 +45,10 @@ tasks {
         }
         failFast = false
     }
+}
+
+tasks.withType<Jar>().configureEach {
+    manifest { attributes["Main-Class"] = application.mainClass }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
 }
