@@ -41,6 +41,7 @@ jobs:
     with:
       image: ${{ needs.build-and-push.outputs.image }}
       prod-only: "true"
+      prod-vars: nais/prod.yaml
       nais-template: nais/naisjob.yaml
       extra-vars: RUN_ON_DEPLOY=true
     secrets: inherit

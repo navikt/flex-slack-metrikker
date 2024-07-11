@@ -1,8 +1,6 @@
 apiVersion: nais.io/v1
 kind: Naisjob
 metadata:
-  annotations:
-    nais.io/read-only-file-system: "false"
   labels:
     team: flex
   name: flex-slack-metrikker{{#if RUN_ON_DEPLOY}}-run-on-deploy{{/if}}
@@ -14,10 +12,15 @@ spec:
   {{/unless}}
   resources:
     limits:
-      memory: 512Mi
+      memory: {{memory}}
     requests:
-      cpu: 500m
-      memory: 512Mi
+      cpu: {{cpu}}
+      memory: {{memory}}
+  env:
+  {{#each env}}
+     - name: {{@key}}
+       value: "{{this}}"
+  {{/each}}
   gcp:
     permissions:
       - resource:
