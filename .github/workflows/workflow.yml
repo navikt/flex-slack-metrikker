@@ -2,7 +2,7 @@ name: workflow
 on: push
 
 jobs:
-  build:
+  build-and-push:
     name: Build and publish Docker image
     runs-on: ubuntu-latest
     permissions:
@@ -32,3 +32,13 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
+  nais-oneoff-deploy:
+    if: github.ref_name == 'main'
+    needs: [build-and-push]
+    uses: navikt/flex-github-actions-workflows/.github/workflows/nais-deploy-dev-og-prod.yml@main
+    with:
+      image: ${{ needs.build-and-push.outputs.image }}
+      prod-only: "true"
+      nais-template: nais/naisjob.yaml
+      extra-vars: RUN_ON_DEPLOY=true
+    secrets: inherit

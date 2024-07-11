@@ -1,0 +1,37 @@
+apiVersion: nais.io/v1
+kind: Naisjob
+metadata:
+  annotations:
+    nais.io/read-only-file-system: "false"
+  labels:
+    team: flex
+  name: flex-slack-metrikker{{#if RUN_ON_DEPLOY}}-run-on-deploy{{/if}}
+  namespace: flex
+spec:
+  image: {{image}}
+  {{#unless RUN_ON_DEPLOY}}
+  schedule: "0 0 * * *"
+  {{/unless}}
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi
+  gcp:
+    permissions:
+      - resource:
+          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+          kind: Project
+          name: {{gcpProjectId}}
+        role: roles/bigquery.readSessionUser
+      - resource:
+          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+          kind: Project
+          name: {{gcpProjectId}}
+        role: roles/bigquery.dataViewer
+      - resource:
+          apiVersion: resourcemanager.cnrm.cloud.google.com/v1beta1
+          kind: Project
+          name: {{gcpProjectId}}
+        role: roles/bigquery.jobUser
