@@ -3,33 +3,24 @@ package no.nav.helse.flex
 import com.google.cloud.bigquery.BigQueryOptions
 import no.nav.helse.flex.queries.finnSisteDagsSendteSoknader
 import no.nav.helse.flex.slack.SlackClient
+import org.slf4j.LoggerFactory
+
+val log = LoggerFactory.getLogger("no.nav.helse.flex.App")
 
 fun main() {
     try {
-        println("Kjører main")
-        val slackToken = System.getenv("SLACK_TOKEN")
-        val dailySlackChannel = System.getenv("DAILY_SLACK_CHANNEL")
-        val projectId = System.getenv("GCP_TEAM_PROJECT_ID")
-        if (slackToken == null) {
-            println("SLACK_TOKEN is not set")
-            return
-        }
-        if (dailySlackChannel == null) {
-            println("DAILY_SLACK_CHANNEL is not set")
-            return
-        }
-        if (projectId == null) {
-            println("GCP_TEAM_PROJECT_ID is not set")
-            return
-        }
-        val slackClient = SlackClient(slackToken)
+        log.info("Starter flex-slack-metriker")
 
-        val bigQuery = BigQueryOptions.newBuilder().setProjectId(projectId).build().service
+        val env = hentEnvironment()
+        val slackClient = SlackClient(env.slackToken)
+        val bigQuery = BigQueryOptions.newBuilder().setProjectId(env.gcpProjectId).build().service
 
         val sistesendtesoknader = bigQuery.finnSisteDagsSendteSoknader()
-        slackClient.postMessage(sistesendtesoknader.toString(), dailySlackChannel)
-        println("Ferdig med main")
+
+        slackClient.postMessage(sistesendtesoknader.toString(), env.dailySlackChannel)
+
+        log.info("Ferdig med flex-slack-metriker")
     } catch (e: Exception) {
-        println("Noe gikk galt: $e")
+        log.error("Noe gikk galt: ${e.message}", e)
     }
 }
