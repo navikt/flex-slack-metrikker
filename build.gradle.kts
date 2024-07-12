@@ -14,7 +14,7 @@ repositories {
 val kluentVersion = "1.73"
 val junitVersion = "5.10.3"
 val logbackVersion = "1.5.6"
-val jacksonVersion = "2.17.1"
+val jacksonVersion = "2.17.2"
 val logstashEncoderVersion = "7.4"
 
 dependencies {
