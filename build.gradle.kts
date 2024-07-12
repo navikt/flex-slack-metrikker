@@ -18,7 +18,7 @@ val jacksonVersion = "2.17.1"
 val logstashEncoderVersion = "7.4"
 
 dependencies {
-    api(platform("com.google.cloud:libraries-bom:26.1.3"))
+    api(platform("com.google.cloud:libraries-bom:26.43.0"))
     implementation(kotlin("stdlib"))
     implementation("com.google.cloud:google-cloud-bigquery")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
