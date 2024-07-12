@@ -35,6 +35,15 @@ fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
 }
 
 fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): BlockElement {
+    fun String.beskrivVarsel(): String =
+        when (this) {
+            "VARSLET_MANGLER_INNTEKTSMELDING_FØRSTE" -> "varslet manglende inntektsmelding første gang"
+            "VARSLET_MANGLER_INNTEKTSMELDING_ANDRE" -> "varslet manglende inntektsmelding andre gang"
+            "VARSLET_VENTER_PÅ_SAKSBEHANDLER_FØRSTE" -> "varslet venter på saksbehandler første gang"
+            "REVARSLET_VENTER_PÅ_SAKSBEHANDLER" -> "revarslet venter på saksbehandler"
+            else -> this
+        }
+
     val builder = StringBuilder()
     val totalt = this.values.sum()
 
@@ -44,14 +53,4 @@ fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): BlockElement {
     }
 
     return MarkdownSection(text = MarkdownText(text = builder.toString()))
-}
-
-fun String.beskrivVarsel(): String {
-    when (this) {
-        "VARSLET_MANGLER_INNTEKTSMELDING_FØRSTE" -> return "varslet manglende inntektsmelding første gang"
-        "VARSLET_MANGLER_INNTEKTSMELDING_ANDRE" -> return "varslet manglende inntektsmelding andre gang"
-        "VARSLET_VENTER_PÅ_SAKSBEHANDLER_FØRSTE" -> return "varslet venter på saksbehandler første gang"
-        "REVARSLET_VENTER_PÅ_SAKSBEHANDLER" -> return "revarslet venter på saksbehandler"
-        else -> return this
-    }
 }

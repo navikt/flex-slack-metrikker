@@ -20,8 +20,11 @@ fun main() {
         bigQuery.finnSisteDagsSendteSoknader().sisteDagsSoknaderTilBlocker().also { blocker.add(it) }
         blocker.add(Divider())
         bigQuery.finnForrigeDagsVarsler().forrigeDagsVarslerTilBlocker().also { blocker.add(it) }
+        val forrigeDagsSporsmal = bigQuery.finnForrigeDagsSporsmal()
         blocker.add(Divider())
-        bigQuery.finnForrigeDagsSporsmal().forrigeDagsSporsmalTilBlocker().also { blocker.add(it) }
+        forrigeDagsSporsmal.medlemskapSporsmalBlock().also { blocker.add(it) }
+        blocker.add(Divider())
+        forrigeDagsSporsmal.yrkeskadeSpmBlock().also { blocker.add(it) }
 
         slackClient.postMessage(
             text = "Gårsdagens metrikker",

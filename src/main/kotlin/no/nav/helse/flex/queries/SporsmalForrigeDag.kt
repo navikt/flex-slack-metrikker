@@ -31,7 +31,17 @@ fun BigQuery.finnForrigeDagsSporsmal(): Map<String, Int> {
     return ret.toMap()
 }
 
-fun Map<String, Int>.forrigeDagsSporsmalTilBlocker(): BlockElement {
+fun Map<String, Int>.medlemskapSporsmalBlock(): BlockElement {
+    fun String.beskrivSporsmalVarsel(): String {
+        return when (this) {
+            "MEDLEMSKAP_OPPHOLDSTILLATELSE_V2" -> " spørsmål om oppholdstillatelse"
+            "MEDLEMSKAP_UTFORT_ARBEID_UTENFOR_NORGE" -> " spørsmål om utført arbeid utenfor Norge"
+            "MEDLEMSKAP_OPPHOLD_UTENFOR_NORGE" -> " spørsmål om opphold utenfor Norge"
+            "MEDLEMSKAP_OPPHOLD_UTENFOR_EOS" -> " spørsmål om opphold utenfor EØS"
+            else -> this
+        }
+    }
+
     val builder = StringBuilder()
     val medlemskapTags =
         listOf(
@@ -51,12 +61,8 @@ fun Map<String, Int>.forrigeDagsSporsmalTilBlocker(): BlockElement {
     return MarkdownSection(text = MarkdownText(text = builder.toString()))
 }
 
-fun String.beskrivSporsmalVarsel(): String? {
-    when (this) {
-        "MEDLEMSKAP_OPPHOLDSTILLATELSE_V2" -> return " spørsmål om oppholdstillatelse"
-        "MEDLEMSKAP_UTFORT_ARBEID_UTENFOR_NORGE" -> return " spørsmål om utført arbeid utenfor Norge"
-        "MEDLEMSKAP_OPPHOLD_UTENFOR_NORGE" -> return " spørsmål om opphold utenfor Norge"
-        "MEDLEMSKAP_OPPHOLD_UTENFOR_EOS" -> return " spørsmål om opphold utenfor EØS"
-        else -> return null
-    }
+fun Map<String, Int>.yrkeskadeSpmBlock(): BlockElement {
+    val antall = this["YRKESSKADE_V2"] ?: 0
+
+    return MarkdownSection(text = MarkdownText(text = ":ambulance: $antall yrkesskadespørsmål besvart\n"))
 }
