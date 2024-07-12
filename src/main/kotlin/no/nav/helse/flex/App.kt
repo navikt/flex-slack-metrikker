@@ -1,10 +1,7 @@
 package no.nav.helse.flex
 
 import com.google.cloud.bigquery.BigQueryOptions
-import no.nav.helse.flex.queries.finnForrigeDagsVarsler
-import no.nav.helse.flex.queries.finnSisteDagsSendteSoknader
-import no.nav.helse.flex.queries.forrigeDagsVarslerTilBlocker
-import no.nav.helse.flex.queries.sisteDagsSoknaderTilBlocker
+import no.nav.helse.flex.queries.*
 import no.nav.helse.flex.slack.*
 import org.slf4j.LoggerFactory
 
@@ -23,6 +20,8 @@ fun main() {
         bigQuery.finnSisteDagsSendteSoknader().sisteDagsSoknaderTilBlocker().also { blocker.add(it) }
         blocker.add(Divider())
         bigQuery.finnForrigeDagsVarsler().forrigeDagsVarslerTilBlocker().also { blocker.add(it) }
+        blocker.add(Divider())
+        bigQuery.finnForrigeDagsSporsmal().forrigeDagsSporsmalTilBlocker().also { blocker.add(it) }
 
         slackClient.postMessage(
             text = "Gårsdagens metrikker",
