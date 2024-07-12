@@ -20,6 +20,10 @@ fun main() {
             println("DAILY_SLACK_CHANNEL is not set")
             return
         }
+        if (projectId == null) {
+            println("GCP_TEAM_PROJECT_ID is not set")
+            return
+        }
         val slackClient = SlackClient(slackToken)
 
         val bigQuery = BigQueryOptions.newBuilder().setProjectId(projectId).build().service
