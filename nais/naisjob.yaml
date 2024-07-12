@@ -21,6 +21,8 @@ spec:
      - name: {{@key}}
        value: "{{this}}"
   {{/each}}
+  envFrom:
+    - secret: team-flex-slack-bot-slack-token
   gcp:
     permissions:
       - resource:
@@ -38,3 +40,7 @@ spec:
           kind: Project
           name: {{gcpProjectId}}
         role: roles/bigquery.jobUser
+  accessPolicy:
+    outbound:
+      external:
+        - host: slack.com
