@@ -1,8 +1,7 @@
 package no.nav.helse.flex.slack
 
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import no.nav.helse.flex.objectMapper
+import no.nav.helse.flex.serialisertTilString
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.InputStream
@@ -13,16 +12,14 @@ import kotlin.time.Duration.Companion.seconds
 internal class SlackClient(private val accessToken: String) {
     private companion object {
         private val log = LoggerFactory.getLogger(SlackClient::class.java)
-        private val objectMapper =
-            jacksonObjectMapper()
-                .registerModule(JavaTimeModule())
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
     }
 
     fun postMessage(
         text: String,
+        blocks: List<BlockElement>? = null,
+        username: String = "Flexy McMetrikkBot",
         channel: String,
-        emoji: String = ":viggo:",
+        emoji: String = ":robot_face:",
         threadTs: String? = null,
         broadcast: Boolean = false,
     ): String? {
@@ -32,12 +29,14 @@ internal class SlackClient(private val accessToken: String) {
             } else {
                 emptyMap()
             }
+        val blockMap = if (blocks != null) mapOf("blocks" to blocks.serialisertTilString()) else emptyMap()
         val parameters =
             mapOf<String, Any>(
                 "channel" to channel,
                 "text" to text,
                 "icon_emoji" to emoji,
-            ) + slackTrådParameter
+                "username" to username,
+            ) + slackTrådParameter + blockMap
 
         return "https://slack.com/api/chat.postMessage".post(
             objectMapper.writeValueAsString(
