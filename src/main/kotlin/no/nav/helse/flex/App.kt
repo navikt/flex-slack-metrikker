@@ -25,6 +25,8 @@ fun main() {
         forrigeDagsSporsmal.medlemskapSporsmalBlock().also { blocker.add(it) }
         blocker.add(Divider())
         forrigeDagsSporsmal.yrkeskadeSpmBlock().also { blocker.add(it) }
+        blocker.add(Divider())
+        bigQuery.finnGosysOppgaver().gosysOppgaverTilBlockElement().also { blocker.add(it) }
 
         slackClient.postMessage(
             text = "Gårsdagens metrikker",
