@@ -15,24 +15,25 @@ fun main() {
         val slackClient = SlackClient(env.slackToken)
         val bigQuery = BigQueryOptions.newBuilder().setProjectId(env.gcpProjectId).build().service
 
-        val blocker = mutableListOf<BlockElement>()
-        blocker.add(Header(HeaderText("Gårsdagens metrikker")))
-        bigQuery.finnSisteDagsSendteSoknader().sisteDagsSoknaderTilBlocker().also { blocker.add(it) }
-        blocker.add(Divider())
-        bigQuery.finnForrigeDagsVarsler().forrigeDagsVarslerTilBlocker().also { blocker.add(it) }
+        val blocks = mutableListOf<BlockElement>()
+        blocks.add(Header(HeaderText("Gårsdagens metrikker")))
+        bigQuery.finnSisteDagsSendteSoknader().sisteDagsSoknaderTilBlocker().also { blocks.add(it) }
+        blocks.add(Divider())
+        bigQuery.finnForrigeDagsVarsler().forrigeDagsVarslerTilBlocker().also { blocks.add(it) }
+
         val forrigeDagsSporsmal = bigQuery.finnForrigeDagsSporsmal()
-        blocker.add(Divider())
-        forrigeDagsSporsmal.medlemskapSporsmalBlock().also { blocker.add(it) }
-        blocker.add(Divider())
-        forrigeDagsSporsmal.yrkeskadeSpmBlock().also { blocker.add(it) }
-        blocker.add(Divider())
-        bigQuery.finnGosysOppgaver().gosysOppgaverTilBlockElement().also { blocker.add(it) }
-        blocker.add(Divider())
-        bigQuery.spinnsynVedtak().spinnsynVedtakTilBlock().also { blocker.add(it) }
+        blocks.add(Divider())
+        forrigeDagsSporsmal.medlemskapSporsmalBlock().also { blocks.add(it) }
+        blocks.add(Divider())
+        forrigeDagsSporsmal.yrkeskadeSpmBlock().also { blocks.add(it) }
+        blocks.add(Divider())
+        bigQuery.finnGosysOppgaver().gosysOppgaverTilBlockElement().also { blocks.add(it) }
+        blocks.add(Divider())
+        bigQuery.spinnsynVedtak().spinnsynVedtakTilBlock().also { blocks.add(it) }
 
         slackClient.postMessage(
             text = "Gårsdagens metrikker",
-            blocks = blocker,
+            blocks = blocks,
             channel = env.dailySlackChannel,
         )
         log.info("Ferdig med flex-slack-metriker")
