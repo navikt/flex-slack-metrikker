@@ -3,4 +3,4 @@ memory: 512Mi
 gcpProjectId: flex-prod-af40
 env:
   GCP_TEAM_PROJECT_ID: flex-prod-af40
-  DAILY_SLACK_CHANNEL: C05N3KF0DQE
+  DAILY_SLACK_CHANNEL: CQZ64G18C

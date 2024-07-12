@@ -7,7 +7,7 @@ metadata:
   namespace: flex
 spec:
   image: {{image}}
-  schedule: "0 10 * * *"
+  schedule: "0 5 * * *"
   resources:
     limits:
       memory: {{memory}}
