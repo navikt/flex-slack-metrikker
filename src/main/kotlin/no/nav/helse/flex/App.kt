@@ -6,7 +6,6 @@ import no.nav.helse.flex.queries.finnSisteDagsSendteSoknader
 import no.nav.helse.flex.queries.forrigeDagsVarslerTilBlocker
 import no.nav.helse.flex.queries.sisteDagsSoknaderTilBlocker
 import no.nav.helse.flex.slack.*
-import no.nav.helse.flex.slack.SlackClient
 import org.slf4j.LoggerFactory
 
 val log = LoggerFactory.getLogger("no.nav.helse.flex.App")

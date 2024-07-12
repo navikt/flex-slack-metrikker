@@ -7,8 +7,6 @@ import com.google.cloud.bigquery.TableResult
 import no.nav.helse.flex.slack.BlockElement
 import no.nav.helse.flex.slack.MarkdownSection
 import no.nav.helse.flex.slack.MarkdownText
-import java.util.*
-import kotlin.collections.HashMap
 
 fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
     val query =
