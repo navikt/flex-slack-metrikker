@@ -33,12 +33,13 @@ fun BigQuery.finnForrigeDagsSporsmal(): Map<String, Int> {
 
 fun Map<String, Int>.forrigeDagsSporsmalTilBlocker(): BlockElement {
     val builder = StringBuilder()
-    val medlemskapTags = listOf(
-        "MEDLEMSKAP_OPPHOLDSTILLATELSE_V2",
-        "MEDLEMSKAP_UTFORT_ARBEID_UTENFOR_NORGE",
-        "MEDLEMSKAP_OPPHOLD_UTENFOR_NORGE",
-        "MEDLEMSKAP_OPPHOLD_UTENFOR_EOS"
-    )
+    val medlemskapTags =
+        listOf(
+            "MEDLEMSKAP_OPPHOLDSTILLATELSE_V2",
+            "MEDLEMSKAP_UTFORT_ARBEID_UTENFOR_NORGE",
+            "MEDLEMSKAP_OPPHOLD_UTENFOR_NORGE",
+            "MEDLEMSKAP_OPPHOLD_UTENFOR_EOS",
+        )
     val medlemskap = this.filter { medlemskapTags.contains(it.key) }
     val totalt = medlemskap.values.sum()
 

@@ -38,7 +38,7 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
 
-  nais-oneoff-deploy:
+  nais-prod-deploy:
     if: github.ref_name == 'main'
     needs: [build-and-push]
     uses: navikt/flex-github-actions-workflows/.github/workflows/nais-deploy-dev-og-prod.yml@main
@@ -47,5 +47,4 @@ jobs:
       prod-only: "true"
       prod-vars: nais/prod.yaml
       nais-template: nais/naisjob.yaml
-      extra-vars: RUN_ON_DEPLOY=true
     secrets: inherit
