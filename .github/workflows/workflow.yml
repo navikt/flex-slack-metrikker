@@ -18,12 +18,14 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - uses: gradle/gradle-build-action@v3
-        with:
-          arguments: --configuration-cache build
-
       - name: Lint
         run: ./gradlew ktlintCheck
+
+      - name: Test
+        run: ./gradlew test
+
+      - name: Build
+        run: ./gradlew shadowjar -x test
 
       - name: docker-build-push
         if: github.ref_name == 'main'

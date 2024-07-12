@@ -2,17 +2,13 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
     kotlin("jvm") version "2.0.0"
-    application
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.1"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
     mavenCentral()
-}
-
-application {
-    mainClass.set("no.nav.helse.flex.AppKt")
 }
 
 val kluentVersion = "1.73"
@@ -56,10 +52,16 @@ tasks {
         }
         failFast = false
     }
-}
-
-tasks.withType<Jar>().configureEach {
-    manifest { attributes["Main-Class"] = application.mainClass }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    shadowJar {
+        archiveBaseName.set("app")
+        archiveClassifier.set("")
+        isZip64 = true
+        manifest {
+            attributes(
+                mapOf(
+                    "Main-Class" to "no.nav.helse.flex.AppKt",
+                ),
+            )
+        }
+    }
 }
