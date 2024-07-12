@@ -17,7 +17,7 @@ internal class SlackClient(private val accessToken: String) {
     fun postMessage(
         text: String,
         blocks: List<BlockElement>? = null,
-        username: String = "Flexy McMetrikkBot",
+        username: String = "Flexy McMetrics",
         channel: String,
         emoji: String = ":robot_face:",
         threadTs: String? = null,
