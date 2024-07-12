@@ -35,8 +35,8 @@ fun Map<String, Int>.sisteDagsSoknaderTilBlocker(): BlockElement {
     val builder = StringBuilder()
     val totalt = this.values.sum()
 
-    builder.append("\n:rocket: $totalt søknader sendt i går\n\n")
-    this.forEach { (key, value) ->
+    builder.append("\n:rocket: $totalt søknader sendt\n\n")
+    this.entries.sortedByDescending { it.value }.associate { it.toPair() }.forEach { (key, value) ->
         builder.append("> *${key.lowercase()}*: $value\n")
     }
 

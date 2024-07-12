@@ -10,9 +10,14 @@ data class Field(
 ) : BlockElement
 
 data class Header(
+    val text: HeaderText,
     override val type: String = "header",
-    val text: String,
 ) : BlockElement
+
+data class HeaderText(
+    val text: String,
+    val type: String = "plain_text",
+)
 
 data class MarkdownSection(
     override val type: String = "section",
@@ -27,3 +32,7 @@ data class MarkdownText(
 interface BlockElement {
     val type: String
 }
+
+data class Divider(
+    override val type: String = "divider",
+) : BlockElement
