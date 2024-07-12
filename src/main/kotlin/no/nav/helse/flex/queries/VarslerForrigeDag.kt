@@ -4,7 +4,6 @@ import com.google.cloud.bigquery.BigQuery
 import com.google.cloud.bigquery.JobInfo
 import com.google.cloud.bigquery.QueryJobConfiguration
 import com.google.cloud.bigquery.TableResult
-import no.nav.helse.flex.slack.BlockElement
 import no.nav.helse.flex.slack.MarkdownSection
 import no.nav.helse.flex.slack.MarkdownText
 
@@ -34,7 +33,7 @@ fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
     return ret.toMap()
 }
 
-fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): BlockElement {
+fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): MarkdownSection {
     fun String.beskrivVarsel(): String =
         when (this) {
             "VARSLET_MANGLER_INNTEKTSMELDING_FØRSTE" -> "varslet manglende inntektsmelding første gang"

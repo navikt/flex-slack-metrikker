@@ -22,7 +22,6 @@ dependencies {
     implementation(kotlin("stdlib"))
     implementation("com.google.cloud:google-cloud-bigquery")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
