@@ -31,7 +31,14 @@ fun main() {
         blocks.add(Divider())
         bigQuery.spinnsynVedtak().spinnsynVedtakTilBlock().also { blocks.add(it) }
 
+        val thread =
+            slackClient.postMessage(
+                text = "Dagens tall i tråd :thread:",
+                channel = env.dailySlackChannel,
+            )
+
         slackClient.postMessage(
+            threadTs = thread,
             text = "Gårsdagens metrikker",
             blocks = blocks,
             channel = env.dailySlackChannel,
