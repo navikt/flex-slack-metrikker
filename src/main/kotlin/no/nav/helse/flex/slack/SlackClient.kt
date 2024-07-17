@@ -6,7 +6,9 @@ import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
+import java.net.InetAddress
 import java.net.URI
+import javax.net.ssl.SSLHandshakeException
 import kotlin.time.Duration.Companion.seconds
 
 internal class SlackClient(private val accessToken: String) {
@@ -77,6 +79,11 @@ internal class SlackClient(private val accessToken: String) {
             log.debug("response from slack: code=$responseCode")
 
             return responseBody
+        } catch (err: SSLHandshakeException) {
+            log.error("feil ved posting til slack: {}", err.message, err)
+            val ips = InetAddress.getAllByName("slack.com")
+            val ip = ips.joinToString { it.hostAddress }
+            log.error("SSL handshake feilet. Slack.com resolvet til: $ip")
         } catch (err: IOException) {
             log.error("feil ved posting til slack: {}", err.message, err)
         } finally {
