@@ -12,7 +12,7 @@ repositories {
 }
 
 val kluentVersion = "1.73"
-val junitVersion = "5.11.3"
+val junitVersion = "5.11.4"
 val logbackVersion = "1.5.15"
 val jacksonVersion = "2.18.2"
 val logstashEncoderVersion = "7.4"
