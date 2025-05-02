@@ -32,15 +32,14 @@ fun BigQuery.finnForrigeDagsSporsmal(): Map<String, Int> {
 }
 
 fun Map<String, Int>.medlemskapSporsmalBlock(): BlockElement {
-    fun String.beskrivSporsmalVarsel(): String {
-        return when (this) {
+    fun String.beskrivSporsmalVarsel(): String =
+        when (this) {
             "MEDLEMSKAP_OPPHOLDSTILLATELSE_V2" -> " spørsmål om oppholdstillatelse"
             "MEDLEMSKAP_UTFORT_ARBEID_UTENFOR_NORGE" -> " spørsmål om utført arbeid utenfor Norge"
             "MEDLEMSKAP_OPPHOLD_UTENFOR_NORGE" -> " spørsmål om opphold utenfor Norge"
             "MEDLEMSKAP_OPPHOLD_UTENFOR_EOS" -> " spørsmål om opphold utenfor EØS"
             else -> this
         }
-    }
 
     val builder = StringBuilder()
     val medlemskapTags =

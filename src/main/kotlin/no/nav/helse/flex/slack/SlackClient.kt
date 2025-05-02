@@ -11,7 +11,9 @@ import java.net.URI
 import javax.net.ssl.SSLHandshakeException
 import kotlin.time.Duration.Companion.seconds
 
-internal class SlackClient(private val accessToken: String) {
+internal class SlackClient(
+    private val accessToken: String,
+) {
     private companion object {
         private val log = LoggerFactory.getLogger(SlackClient::class.java)
     }
@@ -40,13 +42,14 @@ internal class SlackClient(private val accessToken: String) {
                 "username" to username,
             ) + slackTrådParameter + blockMap
 
-        return "https://slack.com/api/chat.postMessage".post(
-            objectMapper.writeValueAsString(
-                parameters,
-            ),
-        )?.let {
-            objectMapper.readTree(it)["ts"]?.asText()
-        }
+        return "https://slack.com/api/chat.postMessage"
+            .post(
+                objectMapper.writeValueAsString(
+                    parameters,
+                ),
+            )?.let {
+                objectMapper.readTree(it)["ts"]?.asText()
+            }
     }
 
     private fun String.post(jsonPayload: String): String? {
