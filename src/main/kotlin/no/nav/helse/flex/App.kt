@@ -13,7 +13,12 @@ fun main() {
 
         val env = hentEnvironment()
         val slackClient = SlackClient(env.slackToken)
-        val bigQuery = BigQueryOptions.newBuilder().setProjectId(env.gcpProjectId).build().service
+        val bigQuery =
+            BigQueryOptions
+                .newBuilder()
+                .setProjectId(env.gcpProjectId)
+                .build()
+                .service
 
         val blocks = mutableListOf<BlockElement>()
         blocks.add(Header(HeaderText("Gårsdagens metrikker")))
