@@ -12,23 +12,23 @@ repositories {
 }
 
 val kluentVersion = "1.73"
-val junitVersion = "5.11.4"
-val logbackVersion = "1.5.18"
 val jacksonVersion = "2.19.0"
-val logstashEncoderVersion = "7.4"
+val junitVersion = "5.12.2"
 
 dependencies {
-    api(platform("com.google.cloud:libraries-bom:26.59.0"))
-    implementation(kotlin("stdlib"))
+    implementation(platform("com.google.cloud:libraries-bom:26.59.0"))
     implementation("com.google.cloud:google-cloud-bigquery")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-
+    implementation("ch.qos.logback:logback-classic:1.5.18")
+    implementation("net.logstash.logback:logstash-logback-encoder:8.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 
+    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    // Forhindrer bruk av Gradles innebygde launcher med annen versjon.
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
 }
 
 ktlint {
