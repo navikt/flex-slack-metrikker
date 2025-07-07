@@ -13,7 +13,7 @@ repositories {
 
 val kluentVersion = "1.73"
 val jacksonVersion = "2.19.1"
-val junitVersion = "5.13.2"
+val junitVersion = "5.13.3"
 
 dependencies {
     implementation(platform("com.google.cloud:libraries-bom:26.62.0"))
