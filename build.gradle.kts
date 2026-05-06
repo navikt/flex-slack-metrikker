@@ -12,7 +12,7 @@ repositories {
 }
 
 val kluentVersion = "1.73"
-val jacksonVersion = "2.21.2"
+val jacksonVersion = "2.21.3"
 val junitVersion = "6.0.3"
 
 dependencies {
