@@ -16,7 +16,7 @@ val jacksonVersion = "2.22.0"
 val junitVersion = "6.1.0"
 
 dependencies {
-    implementation(platform("com.google.cloud:libraries-bom:26.83.0"))
+    implementation(platform("com.google.cloud:libraries-bom:26.84.0"))
     implementation("com.google.cloud:google-cloud-bigquery")
     implementation("ch.qos.logback:logback-classic:1.5.34")
     implementation("net.logstash.logback:logstash-logback-encoder:9.0")
