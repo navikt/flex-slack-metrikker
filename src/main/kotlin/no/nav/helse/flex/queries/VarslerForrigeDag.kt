@@ -11,7 +11,7 @@ fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
     val query =
         """
         SELECT count(*) as antall, status
-        FROM `flex-prod-af40.inntektsmelding_status_datastream.public_vedtaksperiode_behandling_status`
+        FROM `flex-prod-af40.inntektsmelding_status_datastream.public_vedtaksperiode_behandling_status_v2`
         WHERE status in (
           'VARSLET_MANGLER_INNTEKTSMELDING_FØRSTE',
           'VARSLET_MANGLER_INNTEKTSMELDING_ANDRE',
