@@ -47,7 +47,8 @@ fun BigQuery.finnForrigeDagsForelagteOpplysningerVarsler(): Map<String, Int> {
     val result: TableResult = queryJob.getQueryResults()
 
     val row = result.iterateAll().single()
-    return mapOf("FORELAGTE_OPPLYSNINGER_AINNTEKT" to row.get("antall").longValue.toInt())
+    val antall = row.get("antall").longValue.toInt()
+    return if (antall == 0) emptyMap() else mapOf("FORELAGTE_OPPLYSNINGER_AINNTEKT" to antall)
 }
 
 fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): MarkdownSection {
