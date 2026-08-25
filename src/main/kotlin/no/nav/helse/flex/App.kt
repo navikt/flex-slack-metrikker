@@ -24,7 +24,11 @@ fun main() {
         blocks.add(Header(HeaderText("Gårsdagens metrikker")))
         bigQuery.finnSisteDagsSendteSoknader().sisteDagsSoknaderTilBlocker().also { blocks.add(it) }
         blocks.add(Divider())
-        bigQuery.finnForrigeDagsVarsler().forrigeDagsVarslerTilBlocker().also { blocks.add(it) }
+        bigQuery
+            .finnForrigeDagsInntektsVarsler()
+            .plus(bigQuery.finnForrigeDagsForelagteOpplysningerVarsler())
+            .forrigeDagsVarslerTilBlocker()
+            .also { blocks.add(it) }
 
         val forrigeDagsSporsmal = bigQuery.finnForrigeDagsSporsmal()
         blocks.add(Divider())

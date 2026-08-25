@@ -11,10 +11,12 @@ class VarslerForrigeDagTest {
             "VARSLET_MANGLER_INNTEKTSMELDING_ANDRE" to 4,
             "VARSLET_VENTER_PÅ_SAKSBEHANDLER_FØRSTE" to 5,
             "REVARSLET_VENTER_PÅ_SAKSBEHANDLER" to 6,
+            "FORELAGTE_OPPLYSNINGER_AINNTEKT" to 7,
         ).forrigeDagsVarslerTilBlocker().text.text.trim() shouldBeEqualTo
             """
-            :email: 18 varsler sendt
+            :email: 25 varsler sendt
             
+            > 7 varslet om forelagte opplysninger ainntekt
             > 6 revarslet venter på saksbehandler
             > 5 varslet venter på saksbehandler første gang
             > 4 varslet manglende inntektsmelding andre gang
