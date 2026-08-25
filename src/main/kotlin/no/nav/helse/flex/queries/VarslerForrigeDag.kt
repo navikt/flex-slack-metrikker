@@ -7,7 +7,7 @@ import com.google.cloud.bigquery.TableResult
 import no.nav.helse.flex.slack.MarkdownSection
 import no.nav.helse.flex.slack.MarkdownText
 
-fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
+fun BigQuery.finnForrigeDagsInntektsVarsler(): Map<String, Int> {
     val query =
         """
         SELECT count(*) as antall, status
@@ -33,6 +33,23 @@ fun BigQuery.finnForrigeDagsVarsler(): Map<String, Int> {
     return ret.toMap()
 }
 
+fun BigQuery.finnForrigeDagsForelagteOpplysningerVarsler(): Map<String, Int> {
+    val query =
+        """
+        SELECT count(*) as antall
+        FROM `flex-prod-af40.inntektsmelding_status_datastream.public_forelagte_opplysninger_ainntekt`
+        WHERE status = 'SENDT'
+        AND DATE(status_endret) = DATE_SUB(CURRENT_DATE(), INTERVAL 1 DAY)
+        """.trimIndent()
+
+    val queryConfig = QueryJobConfiguration.newBuilder(query).build()
+    val queryJob = this.create(JobInfo.newBuilder(queryConfig).build())
+    val result: TableResult = queryJob.getQueryResults()
+
+    val row = result.iterateAll().single()
+    return mapOf("FORELAGTE_OPPLYSNINGER_AINNTEKT" to row.get("antall").longValue.toInt())
+}
+
 fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): MarkdownSection {
     fun String.beskrivVarsel(): String =
         when (this) {
@@ -40,6 +57,7 @@ fun Map<String, Int>.forrigeDagsVarslerTilBlocker(): MarkdownSection {
             "VARSLET_MANGLER_INNTEKTSMELDING_ANDRE" -> "varslet manglende inntektsmelding andre gang"
             "VARSLET_VENTER_PÅ_SAKSBEHANDLER_FØRSTE" -> "varslet venter på saksbehandler første gang"
             "REVARSLET_VENTER_PÅ_SAKSBEHANDLER" -> "revarslet venter på saksbehandler"
+            "FORELAGTE_OPPLYSNINGER_AINNTEKT" -> "varslet om forelagte opplysninger ainntekt"
             else -> this
         }
 
