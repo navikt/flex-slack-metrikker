@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val kluentVersion = "1.73"
+val kotestVersion = "6.2.6"
 val jacksonVersion = "2.22.4"
 val junitVersion = "6.1.3"
 
@@ -28,7 +28,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
     // Forhindrer bruk av Gradles innebygde launcher med annen versjon.
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("org.amshove.kluent:kluent:$kluentVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
 }
 
 ktlint {
