@@ -2,7 +2,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
     id("com.gradleup.shadow") version "9.6.1"
 }
@@ -12,13 +12,13 @@ repositories {
 }
 
 val kluentVersion = "1.73"
-val jacksonVersion = "2.22.2"
+val jacksonVersion = "2.22.4"
 val junitVersion = "6.1.3"
 
 dependencies {
-    implementation(platform("com.google.cloud:libraries-bom:26.88.1"))
+    implementation(platform("com.google.cloud:libraries-bom:26.90.0"))
     implementation("com.google.cloud:google-cloud-bigquery")
-    implementation("ch.qos.logback:logback-classic:1.6.3")
+    implementation("ch.qos.logback:logback-classic:1.6.5")
     implementation("net.logstash.logback:logstash-logback-encoder:9.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
