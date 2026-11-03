@@ -1,6 +1,6 @@
 package no.nav.helse.flex.queries
 
-import org.amshove.kluent.shouldBeEqualTo
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 class VarslerForrigeDagTest {
@@ -12,7 +12,7 @@ class VarslerForrigeDagTest {
             "VARSLET_VENTER_PÅ_SAKSBEHANDLER_FØRSTE" to 5,
             "REVARSLET_VENTER_PÅ_SAKSBEHANDLER" to 6,
             "FORELAGTE_OPPLYSNINGER_AINNTEKT" to 7,
-        ).forrigeDagsVarslerTilBlocker().text.text.trim() shouldBeEqualTo
+        ).forrigeDagsVarslerTilBlocker().text.text.trim() shouldBe
             """
             :email: 25 varsler sendt
             
