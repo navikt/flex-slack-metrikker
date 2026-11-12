@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/java25-debian13@sha256:d72c7b79a8c4babd6a69cf00979c9eed7f87e3e2b7d6871c6a0e9f91ff626cea
+FROM gcr.io/distroless/java25-debian13@sha256:2c2450426c449aa19e6fb12a151172187588f6f6fc6d7183b3af559d208a5e8b
 
 ENV LANG='nb_NO.UTF-8' LANGUAGE='nb_NO:nb' LC_ALL='nb:NO.UTF-8' TZ="Europe/Oslo"
 
