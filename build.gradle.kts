@@ -12,7 +12,7 @@ repositories {
 }
 
 val kotestVersion = "6.2.6"
-val jacksonVersion = "2.23.0"
+val jacksonVersion = "3.3.0"
 val junitVersion = "6.1.3"
 
 dependencies {
@@ -20,9 +20,8 @@ dependencies {
     implementation("com.google.cloud:google-cloud-bigquery")
     implementation("ch.qos.logback:logback-classic:1.6.6")
     implementation("net.logstash.logback:logstash-logback-encoder:9.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation(platform("tools.jackson:jackson-bom:$jacksonVersion"))
+    implementation("tools.jackson.module:jackson-module-kotlin")
 
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -59,6 +58,10 @@ tasks {
         archiveBaseName.set("app")
         archiveClassifier.set("")
         isZip64 = true
+        // Ensure all duplicates are processed by the transformer.
+        filesMatching("META-INF/*.kotlin_module") {
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+        }
         manifest {
             attributes(
                 mapOf(
