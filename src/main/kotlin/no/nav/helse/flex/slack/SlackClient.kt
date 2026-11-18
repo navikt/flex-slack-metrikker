@@ -27,7 +27,7 @@ internal class SlackClient(
         threadTs: String? = null,
         broadcast: Boolean = false,
     ): String? {
-        val slackTrådParameter =
+        val slackThreadParameter =
             if (threadTs != null) {
                 mapOf("thread_ts" to threadTs, "reply_broadcast" to broadcast)
             } else {
@@ -40,7 +40,7 @@ internal class SlackClient(
                 "text" to text,
                 "icon_emoji" to emoji,
                 "username" to username,
-            ) + slackTrådParameter + blockMap
+            ) + slackThreadParameter + blockMap
 
         return "https://slack.com/api/chat.postMessage"
             .post(
@@ -48,7 +48,7 @@ internal class SlackClient(
                     parameters,
                 ),
             )?.let {
-                objectMapper.readTree(it)["ts"]?.asText()
+                objectMapper.readTree(it)["ts"]?.asString()
             }
     }
 
