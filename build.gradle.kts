@@ -11,7 +11,7 @@ repositories {
     mavenCentral()
 }
 
-val kotestVersion = "6.2.6"
+val kotestVersion = "6.2.7"
 val jacksonVersion = "3.3.0"
 val junitVersion = "6.1.3"
 
