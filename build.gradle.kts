@@ -12,7 +12,7 @@ repositories {
 }
 
 val kotestVersion = "6.2.6"
-val jacksonVersion = "2.22.4"
+val jacksonVersion = "2.23.0"
 val junitVersion = "6.1.3"
 
 dependencies {
