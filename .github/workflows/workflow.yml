@@ -31,7 +31,7 @@ jobs:
 
       - name: docker-build-push
         if: github.ref_name == 'main'
-        uses: nais/docker-build-push@v0
+        uses: nais/docker-build-push@v1
         id: docker-build-push
         with:
           team: flex
